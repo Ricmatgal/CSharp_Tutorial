@@ -273,6 +273,7 @@ namespace BasicsProg
 			// Switch
 			Console.WriteLine("====Switch Test====");
 			int c = b;
+			// switch works with integers, enums, and strings.
 			switch(c)
 			{
 			case 4: Console.WriteLine("c=4"); break;
