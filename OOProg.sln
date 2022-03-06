@@ -3,12 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOProg", "OOProg\OOProg.csproj", "{58434CE1-6A96-4E3F-B285-D77AF1C3FA94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OOProg", "OOProg\OOProg.csproj", "{58434CE1-6A96-4E3F-B285-D77AF1C3FA94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameProg", "GameProg\GameProg.csproj", "{C74F5D94-AB3F-4D8E-A24B-548059B9582C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameProg", "GameProg\GameProg.csproj", "{C74F5D94-AB3F-4D8E-A24B-548059B9582C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{58434CE1-6A96-4E3F-B285-D77AF1C3FA94} = {58434CE1-6A96-4E3F-B285-D77AF1C3FA94}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicsProg", "BasicsProg\BasicsProg.csproj", "{951ED731-9F56-4029-9282-83C191F0962F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +26,10 @@ Global
 		{C74F5D94-AB3F-4D8E-A24B-548059B9582C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C74F5D94-AB3F-4D8E-A24B-548059B9582C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C74F5D94-AB3F-4D8E-A24B-548059B9582C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{951ED731-9F56-4029-9282-83C191F0962F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{951ED731-9F56-4029-9282-83C191F0962F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{951ED731-9F56-4029-9282-83C191F0962F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{951ED731-9F56-4029-9282-83C191F0962F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

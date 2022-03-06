@@ -7,6 +7,13 @@ using System.Text;
 
 namespace GameProg
 {
+	// EXERCISE
+	// Make a game where the player have to :
+	// - follow a succession of randomly generated intersections : at each intersection the player have to guess the Direction (Left, Forward, Right) using arrows key from the keyboard.
+	// - choose a Vehicule to start the party
+	// You have to count the time in second spent by the player to finish a party.
+	// Then you can record the score done in a file called "Highscores.txt" : each row in the file is [Date, PlayerName(4 characters), VehiculeName(3 characters), time(s)]
+	// Ask the name of the player just after he finished a party, before recording his score to the file.
 	class Game
 	{
 		// These are not variables (no memory allocated).
