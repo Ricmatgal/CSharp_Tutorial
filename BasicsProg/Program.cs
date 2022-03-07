@@ -3,6 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
+// Shortcuts
+// When copy/pasting some code and the code indentation is broken, then you need to format your document with : Ctrl+E & Crtl+D
+// Build and Run : F5
+// Block comment : Ctrl+K & Ctrl+C
+// Block uncomment : Ctrl+K & Ctrl+U
+/* 
+You can also
+comment a block like this 
+*/
+
+// A namespace is optional, but it is better to put your code inside a namespace if you need to share your code.
 namespace BasicsProg
 {
 	class Program
@@ -16,7 +27,7 @@ namespace BasicsProg
 
 			// 2. Write some text to the console.
 			Console.WriteLine("Hello World!");
-			// Tests
+			// Tests : uncomment the desired test to run it. 
 			//VariablesTest();
 			//StringTest();
 			//OperationsTest();
@@ -126,8 +137,10 @@ namespace BasicsProg
 			// EXERCISE
 			// Use string formatting to format the variables firstName, lastName to form the following sentence:
 			// John Smith is 27 years old.
+			// You can also create a variable age to store the age.
 			#region CORRECTION
-			string result = string.Format("{0} {1} is {2} years old.", firstName, lastName, 27);
+			int age = 27;
+			string result = string.Format("{0} {1} is {2} years old.", firstName, lastName, age);
 			Console.WriteLine("result : " + result);
 			#endregion
 		}
@@ -194,13 +207,13 @@ namespace BasicsProg
 			Console.WriteLine("myFloat as int (rounding) : " + Math.Round(myFloat));
 			// EXERCISE : convert double to int.
 			// This conversion is dangerous and we will lose the accuracy. (32 bits => 64 bits)
-			int myDoubleAsInt = (int)myDouble; // cast is mandatory because this conversion is not trivial.
 			#region CORRECTION
+			int myDoubleAsInt = (int)myDouble; // cast is mandatory because this conversion is not trivial.
+			#endregion
 			Console.WriteLine("myDouble as int : " + myDoubleAsInt);
 			Console.WriteLine("myDouble as int (floor) : " + Math.Floor(myDouble));
 			Console.WriteLine("myDouble as int (ceiling) : " + Math.Ceiling(myDouble));
 			Console.WriteLine("myDouble as int (rounding) : " + Math.Round(myDouble));
-			#endregion
 			// IS THERE ANY DIFFERENCE BETWEEN FLOAT TO INT AND DOUBLE TO INT CONVERSIONS ?
 
 			// Here C# converts automatically res to a double (= the largest of the two operands types).
@@ -441,6 +454,12 @@ namespace BasicsProg
 			#region CORRECTION
 			List<int> primeNumbers = new List<int>();
 			primeNumbers.AddRange(new int[]{ 2, 3, 5, 7, 11 });
+			// Initialisation one by one.
+			//primeNumbers.Add(2);
+			//primeNumbers.Add(3);
+			//primeNumbers.Add(5);
+			//primeNumbers.Add(7);
+			//primeNumbers.Add(11);
 			#endregion
 		}
 
