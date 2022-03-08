@@ -35,7 +35,7 @@ namespace BasicsProg
 			//ArrayTest();
 			//ListTest();
 			//DictionnaryTest();
-			//LoopsTest();
+			LoopsTest();
 			//MethodsTest();
 			//ClassTest();
 			//FileTest();
