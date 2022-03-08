@@ -2,6 +2,7 @@
 
 namespace OOProg
 {
+	// enum can be interpreted as an integer value.
 	public enum Direction { Left, Forward, Right }
 
 	// Abstract class cannot be instantiated.
@@ -15,13 +16,13 @@ namespace OOProg
 		public uint WheelsCount { get { return _wheelsCount; } }
 
 		// This is a shorter way to add a property with the same level of protection (public read / protected write).
-		public uint MaxSpeed { get; protected set; } = 0u;
+		public uint MaxSpeed { get; protected set; } = 0u; // property with default value.
 
 		// Abstract method has no implementation.
 		//public abstract void Move(Direction pDirection);
 		public virtual void Move(Direction pDirection)
 		{
-			Console.WriteLine("Vehicule moved to direction : " + pDirection);
+			Console.WriteLine("Vehicule moved to direction : " + pDirection); // pDirection.ToString() called implicitly.
 		}
 
 		public override string ToString()
@@ -45,6 +46,8 @@ namespace OOProg
 		// Override means this method will be called instead of the one from base class.
 		public override void Move(Direction pDirection)
 		{
+			//base.Move(pDirection); // you can call the method from the parent class if you want
+			// and then add the code specific to the child class.
 			Console.WriteLine("Car moved to direction : " + pDirection);
 		}
 

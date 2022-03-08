@@ -35,10 +35,10 @@ namespace BasicsProg
 			//ArrayTest();
 			//ListTest();
 			//DictionnaryTest();
-			//LoopsTest();
+			LoopsTest();
 			//MethodsTest();
-			//FileTest();
 			//ClassTest();
+			//FileTest();
 
 			WaitForQuit();
 		}
@@ -56,19 +56,19 @@ namespace BasicsProg
 		{
 			Console.WriteLine("====Variables Test====");
 			// These are variables.
-			byte myByte = byte.MaxValue; // 255
-			Console.WriteLine("myByte : " + myByte);
-			int myInt = int.MinValue;
-			Console.WriteLine("myInt : " + myInt);
-			float myFloat = 1.3f;
-			Console.WriteLine("myFloat : " + myFloat);
 			bool myBoolean = true;
 			Console.WriteLine("myBoolean : " + myBoolean);
-			string myName = "John";
-			Console.WriteLine("myName : " + myName);
-			char myChar = 'a';
+			byte myByte = byte.MaxValue; // 8 bits, max value : 255
+			Console.WriteLine("myByte : " + myByte);
+			int myInt = int.MinValue; // 32 bits
+			Console.WriteLine("myInt : " + myInt);
+			float myFloat = 1.3f; // 32 bits
+			Console.WriteLine("myFloat : " + myFloat);
+			char myChar = 'a'; // 16 bits
 			Console.WriteLine("myChar : " + myChar);
-			double myDouble = 1.75;
+			string myName = "John"; // string is an array of chars
+			Console.WriteLine("myName : " + myName);
+			double myDouble = 1.75; // 64 bits
 			Console.WriteLine("myDouble : " + myDouble);
 
 			// EXERCISE : DEFINE THREE VARIABLES:
@@ -123,15 +123,15 @@ namespace BasicsProg
 			sentence2 = fullName + sentence2;
 			Console.WriteLine("sentence2 : " + sentence2);
 			// Search
-			int cPos = sentence2.IndexOf('c');
-			// Remove chess. from sentence2.
-			sentence2 = sentence2.Substring(0, cPos-1) + '.';
+			int cPos = sentence2.IndexOf('c'); // returns the index of 'c' in the string
+											   // Remove
+			sentence2 = sentence2.Substring(0, cPos - 1) + '.'; // returns a string with "chess." removed
 			Console.WriteLine("sentence2 : " + sentence2);
 			// Replace
 			sentence2 = sentence2.Replace("Smith", "Carter");
 			Console.WriteLine("sentence2 : " + sentence2);
 			// string formating
-			string numbers = string.Format("Numbers : {0} ; {1} ; {2}", 1, 2, 3);
+			string numbers = string.Format("Numbers : {0} ; {1} ; {2}", 11, 22, 33); // returns "Numbers : 11 ; 22 ; 33"
 			Console.WriteLine("numbers : " + numbers);
 
 			// EXERCISE
@@ -147,32 +147,26 @@ namespace BasicsProg
 
 		// 6. Operations
 		static void OperationsTest()
-		{	
+		{
 			// LESSONS LEARN:
 			// - Take care of overflow
-			// - Make operations using the same type of variables as possible to not lose precision.
+			// - Do operations using the same type of variables as possible, to not lose precision.
 			Console.WriteLine("====Operations Test====");
-			byte myByte = byte.MaxValue; // 255
+			byte myByte = byte.MaxValue; // 8 bits, max value : 255
 			Console.WriteLine("myByte : " + myByte);
-			int myInt = int.MinValue;
+			int myInt = int.MinValue; // 32 bits
 			Console.WriteLine("myInt : " + myInt);
-			float myFloat = 1.3f;
+			float myFloat = 1.3f; // 32 bits
 			Console.WriteLine("myFloat : " + myFloat);
-			bool myBoolean = true;
-			Console.WriteLine("myBoolean : " + myBoolean);
-			string myName = "John";
-			Console.WriteLine("myName : " + myName);
-			char myChar = 'a';
-			Console.WriteLine("myChar : " + myChar);
-			double myDouble = 1.75;
+			double myDouble = 1.75; // 64 bits
 			Console.WriteLine("myDouble : " + myDouble);
 
 			// Take care to never overflow the min & max theoric value of any type !!!
 			// The majority of program bugs & computation errors come from overflow.
 			Console.WriteLine("====Overflow Test====");
-			myByte += 3;
+			myByte += 3; // 255 + 3 should be 258 but it is not because we overflow the 8-bit capacity of the byte type.
 			Console.WriteLine("myByte + 3 : " + myByte);
-			myInt -= 3;
+			myInt -= 3; // -2 147 483 648 - 3 should be -2 147 483 651 but it is not because we overflow the 32-bit capacity of the int type.
 			Console.WriteLine("myInt - 3 : " + myInt);
 
 			// Basic Operations.
@@ -206,9 +200,9 @@ namespace BasicsProg
 			Console.WriteLine("myFloat as int (ceiling) : " + Math.Ceiling(myFloat));
 			Console.WriteLine("myFloat as int (rounding) : " + Math.Round(myFloat));
 			// EXERCISE : convert double to int.
-			// This conversion is dangerous and we will lose the accuracy. (32 bits => 64 bits)
+			// This conversion is dangerous and we will lose the accuracy. (64 bits => 32 bits)
 			#region CORRECTION
-			int myDoubleAsInt = (int)myDouble; // cast is mandatory because this conversion is not trivial.
+			int myDoubleAsInt = (int)myDouble; // cast is mandatory because this conversion is dangerous.
 			#endregion
 			Console.WriteLine("myDouble as int : " + myDoubleAsInt);
 			Console.WriteLine("myDouble as int (floor) : " + Math.Floor(myDouble));
@@ -217,7 +211,7 @@ namespace BasicsProg
 			// IS THERE ANY DIFFERENCE BETWEEN FLOAT TO INT AND DOUBLE TO INT CONVERSIONS ?
 
 			// Here C# converts automatically res to a double (= the largest of the two operands types).
-			var res = myFloat + myDouble;
+			var res = myFloat + myDouble; // "var" let the compiler infer the type : avoid using "var" as possible.
 			Console.WriteLine("(myFloat + myDouble) as double : " + res);
 			// The second result is more accurate because we use the same type for both operands.
 			float res2 = myFloat + 1.75f;
@@ -242,7 +236,7 @@ namespace BasicsProg
 			float remainderAsFloat = (float)remainder;
 			Console.WriteLine("remainderAsFloat : " + remainderAsFloat);
 			// How to get the accurate value of quotient ?
-			float accurateQuotient = (float)x / (float)y;
+			float accurateQuotient = (float)x / (float)y; // int to float conversion is implicit, but here we need the accuracy of a division with 2 floats.
 			Console.WriteLine("accurateQuotient : " + accurateQuotient);
 			#endregion
 		}
@@ -275,14 +269,14 @@ namespace BasicsProg
 			Console.WriteLine("!result : " + result);
 
 			Console.WriteLine("====If/Else Test====");
-			// Simple If
+			// Simple if
 			if (a != b)
 			{
 				Console.WriteLine("a != b");
 			}
 
-			// If/Else
-			if(a==b)
+			// if/else
+			if (a == b)
 			{
 				// Sorry this is not true.
 			}
@@ -291,13 +285,13 @@ namespace BasicsProg
 				Console.WriteLine("Again : a != b");
 			}
 
-			// If/Else if/Else
-			// You can add as many Else if as you want.
-			if (a==b)
+			// if/else if/else
+			// You can add as many "else if" as you want.
+			if (a == b)
 			{
 				// Sorry this is not true.
 			}
-			else if(a==6)
+			else if (a == 6)
 			{
 				// Sorry this is not true.
 			}
@@ -310,11 +304,11 @@ namespace BasicsProg
 			Console.WriteLine("====Switch Test====");
 			int c = b;
 			// switch works with integers, enums, and strings.
-			switch(c)
+			switch (c)
 			{
-			case 4: Console.WriteLine("c=4"); break;
-			case 5: Console.WriteLine("c=5"); break;
-			default: Console.WriteLine("c=" + c); break;
+				case 4: Console.WriteLine("c=4"); break; // this line is executed if c == 4
+				case 5: Console.WriteLine("c=5"); break; // this line is executed if c == 5
+				default: Console.WriteLine("c=" + c); break; // this line is executed only if no other "case" is executed.
 			}
 
 			// EXERCISE
@@ -322,8 +316,8 @@ namespace BasicsProg
 			// If that is the case, use Console.WriteLine to display "You Win!" or "You Loose !".
 			#region CORRECTION
 			Console.WriteLine("Guess the number ? (you have only one chance)");
-			string text = Console.ReadLine();
-			if (text == "500")
+			int guess = int.Parse(Console.ReadLine());
+			if (guess == 500)
 			{
 				Console.WriteLine("You Win !");
 			}
@@ -348,32 +342,31 @@ namespace BasicsProg
 			int third = nums[2];
 			int fourth = nums[3];
 			int fifth = nums[4];
-			// Out of range.
-			//int sixth = nums[5]; 
+			//int sixth = nums[5]; // Out of range.
 			Console.WriteLine(string.Format("nums : {0} ; {1} ; {2} ; {3} ; {4}", first, second, third, fourth, fifth));
-			third = nums[2] = 10;
+			third = nums[2] = 10; // change the third number (index 2 in the array)
 			Console.WriteLine("nums[2] = 10;");
 			Console.WriteLine(string.Format("nums : {0} ; {1} ; {2} ; {3} ; {4}", first, second, third, fourth, fifth));
 
 			// Define an empty array of size 10.
-			// New is a keyword to allocate memory. Here we ask to allocate 10 x 32 bits.
-			// The garbage collector will free this allocated memory automatically when the array object will not be used anywhere (at the end of the ArrayTest method in this situation).
+			// "new" is a keyword to allocate memory. Here we ask to allocate 10 x 32 bits.
+			// The garbage collector will free this allocated memory automatically when the array object will not be referenced anywhere (at the end of the ArrayTest method in this situation).
 			int[] nums2 = new int[10];
 			Console.WriteLine("nums2 length : " + nums2.Length);
 
 			Console.WriteLine("====Multidimensional Array Test====");
 			// Declare a matrix.
-			// Size is fixed.
+			// Size is fixed (set once for all) in all dimensions.
 			int[,] matrix = new int[2, 3];
 			// Then fill it.
-			matrix[0, 0] = 1;
-			matrix[0, 1] = 2;
-			matrix[0, 2] = 3;
-			matrix[1, 0] = 4;
-			matrix[1, 1] = 5;
-			matrix[1, 2] = 6;
+			matrix[0, 0] = 41;
+			matrix[0, 1] = 22;
+			matrix[0, 2] = 35;
+			matrix[1, 0] = -4;
+			matrix[1, 1] = 59;
+			matrix[1, 2] = 97;
 			// Declare and fill at the same time.
-			int[,] predefinedMatrix = new int[2, 3] { { 1, 2, 3 }, { 4, 5, 6 } };
+			int[,] predefinedMatrix = new int[2, 3] { { 11, 42, 27 }, { 54, 25, 36 } };
 			Console.WriteLine("predefinedMatrix dimensions : {0} x {1}", predefinedMatrix.GetLength(0), predefinedMatrix.GetLength(1));
 			Console.WriteLine("predefinedMatrix[1, 2] : " + predefinedMatrix[1, 2]);
 
@@ -383,7 +376,7 @@ namespace BasicsProg
 			// Use a separate set of square brackets for each dimension of the array.
 			int[][] jaggedArray = new int[3][];
 			jaggedArray[0] = new int[] { 10, 20, 30 };
-			jaggedArray[1] = new int[] { 40, 50, 60, 70 }; 
+			jaggedArray[1] = new int[] { 40, 50, 60, 70 };
 			jaggedArray[2] = new int[] { 80, 90, 100, 110, 120 };
 			Console.WriteLine("jaggedArray[2, 4] : " + jaggedArray[2][4]);
 			//Console.WriteLine("jaggedArray[2, 4] : " + jaggedArray[1][4]); // out of range.
@@ -392,6 +385,11 @@ namespace BasicsProg
 			#region CORRECTION
 			string[] fruits = { "apple", "banana", "orange" };
 			#endregion
+
+			// DEBUGGER INTRODUCTION
+			// HOW TO ADD/REMOVE A BREAKPOINT
+			// F5 (Execute) / F10 (Step) / F11 (Step into)
+			// Explore the values of nums, matrix, predefinedMatrix, jaggedArray while debugging.
 		}
 
 		// 9. Lists
@@ -407,7 +405,7 @@ namespace BasicsProg
 			Console.WriteLine(string.Format("nums : {0} ; {1} ; {2}", nums[0], nums[1], nums[2]));
 			Console.WriteLine(string.Format("nums has {0} elements.", nums.Count));
 			// Adds an array of numbers to the list directly with AddRange().
-			int[] array = { 4, 5, 6};
+			int[] array = { 4, 5, 6 };
 			nums.AddRange(array);
 			Console.WriteLine(string.Format("nums : {0} ; {1} ; {2} ; {3} ; {4} ; {5}", nums[0], nums[1], nums[2], nums[3], nums[4], nums[5]));
 			Console.WriteLine(string.Format("nums has {0} elements.", nums.Count));
@@ -421,14 +419,14 @@ namespace BasicsProg
 			Console.WriteLine(string.Format("fruits : {0} ; {1} ; {2}", fruits[0], fruits[1], fruits[2]));
 			Console.WriteLine(string.Format("fruits has {0} elements.", fruits.Count));
 			// Remove
-			fruits.Remove("banana");
+			fruits.Remove("banana"); // remove the "banana" element from the list if found.
 			Console.WriteLine("banana removed.");
 			Console.WriteLine(string.Format("fruits has {0} elements.", fruits.Count));
 			fruits.Add("banana");
 			Console.WriteLine("banana is back.");
 			Console.WriteLine(string.Format("fruits has {0} elements.", fruits.Count));
 			// RemoveAt
-			fruits.RemoveAt(0);
+			fruits.RemoveAt(0); // remove element at index 0
 			Console.WriteLine("apple removed.");
 			Console.WriteLine(string.Format("fruits has {0} elements.", fruits.Count));
 			Console.WriteLine(string.Format("fruits : {0} ; {1}", fruits[0], fruits[1]));
@@ -445,21 +443,24 @@ namespace BasicsProg
 
 			// Search
 			int tomatoIndex = food.IndexOf("tomato");
-			if(tomatoIndex != -1)
+			if (tomatoIndex != -1) // -1 means : element not found
 			{
 				Console.WriteLine("tomato found at index : " + tomatoIndex);
 			}
 
 			// EXERCISE : Construct a list of the first 5 prime numbers(2, 3, 5, 7, 11) called primeNumbers
+			// Then remove the first and last element.
 			#region CORRECTION
 			List<int> primeNumbers = new List<int>();
-			primeNumbers.AddRange(new int[]{ 2, 3, 5, 7, 11 });
+			primeNumbers.AddRange(new int[] { 2, 3, 5, 7, 11 });
 			// Initialisation one by one.
 			//primeNumbers.Add(2);
 			//primeNumbers.Add(3);
 			//primeNumbers.Add(5);
 			//primeNumbers.Add(7);
 			//primeNumbers.Add(11);
+			primeNumbers.RemoveAt(0); // remove first element
+			primeNumbers.RemoveAt(primeNumbers.Count - 1); // remove last element
 			#endregion
 		}
 
@@ -468,6 +469,7 @@ namespace BasicsProg
 		{
 			Console.WriteLine("====Dictionnary Test====");
 			// A Dictionnary store pairs [Key, Value]
+			// Key and Value could be any type.
 			// Duplicate keys are not allowed.
 			Dictionary<string, long> phonebook = new Dictionary<string, long>();
 			// Adds a pair.
@@ -486,9 +488,9 @@ namespace BasicsProg
 				Console.WriteLine("Alex's new number is " + phonebook["Alex"]);
 			}
 			// Another fastest way to search.
-			if(phonebook.TryGetValue("Jessica", out long number))
+			if (phonebook.TryGetValue("Jessica", out long number))
 			{
-				Console.WriteLine("Jessica's number is " + phonebook["Jessica"]);
+				Console.WriteLine("Jessica's number is " + number);
 			}
 			// Remove
 			phonebook.Remove("Jessica");
@@ -517,9 +519,8 @@ namespace BasicsProg
 		{
 			Console.WriteLine("====For Loops Test====");
 			// Typical for loop.
-			// There's no difference whether to use i++ or ++i here.
-			// But ++i is more efficient because it increment directly the value of i.
-			// On its side i++ is the same as doing : i += 1 or i = i + 1, so there are 2 operations (a sum + an assignement).
+			// i++ means "give the value of i, then increment i"
+			// ++i means "increment i, then gives the value of i"
 			{
 				int i;
 				// (iterator initialization; stop condition; iterator increment)
@@ -558,7 +559,7 @@ namespace BasicsProg
 			// EXERCISE
 			// Print the even numbers from 2 to 100 without using an if statement.
 			#region CORRECTION
-			for (int i = 2; i < 101; i+=2)
+			for (int i = 2; i < 101; i += 2)
 			{
 				Console.WriteLine("even number : " + i);
 			}
@@ -566,12 +567,12 @@ namespace BasicsProg
 
 			Console.WriteLine("====Foreach Loops Test====");
 			int[] array = { 1, 2, 3, 4, 5 };
-			// Loop through all the elements of the array
-			foreach(int item in array)
+			// Loop through all the elements in the array
+			foreach (int item in array)
 			{
 				Console.WriteLine("item : " + item);
 			}
-			// Loop through all the elements of the array
+			// Loop through all the elements in the array
 			string[] programming = { "C++", "C#", "Python", "C", "Java", "JavaScript" };
 			foreach (string language in programming)
 			{
@@ -584,7 +585,7 @@ namespace BasicsProg
 			bool pythonFound = false;
 			foreach (string language in programming)
 			{
-				if(language == "Python")
+				if (language == "Python")
 				{
 					pythonFound = true;
 					// Don't need to look further.
@@ -596,34 +597,52 @@ namespace BasicsProg
 
 			Console.WriteLine("====While Loops Test====");
 			int n = 0;
-			// Loops while n < 2.
+			// Loops while n < 2 with "while"
 			while (n < 2)
 			{
-				Console.WriteLine("n (while): " + n++); // n++ : Print value of n, then increment n.
+				Console.WriteLine("n (while): " + n++); // n++ : give the value of n, then increment n.
 			}
 
-			// The same here
+			// Loops while n < 2 with "do while"
 			n = 0;
 			do
 			{
-				Console.WriteLine("n (do while): " + n++); // n++ : Print value of n, then increment n.
+				Console.WriteLine("n (do while): " + ++n); // ++n : increment n, then give the value of n.
 			} while (n < 2);
 
 			// EXERCISE
-			// Print programming languages using a while loop.
+			// 1. Print programming languages using a while loop.
+			// 2. Print programming languages using a for loop.
 			#region CORRECTION
+			// 1.
 			n = 0;
-			while(n < programming.Length)
+			while (n < programming.Length)
 			{
 				Console.WriteLine("language : " + programming[n++]);
 			}
+			// 2.
+			for (int i = 0; i < programming.Length; ++i)
+			{
+				Console.WriteLine("language : " + programming[i]);
+			}
 			#endregion
 
-			// Remember while loops are faster than for loops which are faster than foreach loops.
-			// Only consider this remark for big computations.
+			// REMARK : "while" and "for" loops are faster than "foreach" loops.
 		}
 
 		// 12. Methods
+		// A simple method returning an integer, with no parameters.
+		static int IntegerTest()
+		{
+			return 0;
+		}
+
+		// A method returning an integer as the product of its two parameters : a & b.
+		static int Multiply(int a, int b)
+		{
+			return a * b;
+		}
+
 		static void MethodsTest()
 		{
 			Console.WriteLine("====Methods Test====");
@@ -631,9 +650,9 @@ namespace BasicsProg
 			Console.WriteLine(string.Format("Multiply({0}, {1}) returns : {2}", 4, 5, Multiply(4, 5)));
 
 			// EXERCISE
-			// Create a method which take 2 parameters : an array of integer values & a integer value to look for in the array.
+			// Create a method which take 2 parameters : an array of integer values, and a integer value to look for in the array.
 			// The method must return the index of the integer value if found in the array, otherwise it returns -1.
-			#region CORRECTION
+			#region CORRECTION INDEXOF
 			int[] values = { 1, -2, 3, 44, int.MinValue, 6, 9, int.MaxValue, 101, 56 };
 			Console.WriteLine("IndexOf(6) : " + IndexOf(values, 6));
 			#endregion
@@ -641,52 +660,83 @@ namespace BasicsProg
 			// Copy Vs Reference
 			Console.WriteLine("====Copy Test====");
 			// "a" keeps its value (5) because a copy of "a" is passed to the CopyTest() method.
+			// this behaviour applies to all "value" types (=struct types).
 			int a = 5;
 			Console.WriteLine("a : " + a);
 			CopyTest(a);
 			Console.WriteLine("a : " + a);
-			
+
 			Console.WriteLine("====Reference Test====");
 			// the array "values" is passed as a reference, so it is modified by the ReferenceTest() method.
+			// this behaviour applies to all "reference" types (=class types).
 			Console.WriteLine("values[0] : " + values[0]);
 			ReferenceTest(values);
 			Console.WriteLine("values[0] : " + values[0]);
 
 			// EXERCISE
 			// What's wrong with the Compute method below.
+			//static int Compute(int[] pValues)
+			//{
+			//	int val1, val2;
+			//	foreach (int val in pValues)
+			//	{
+			//		if (val1 > val)
+			//		{
+			//			val1 = val;
+			//		}
+			//
+			//		if (val2 < val)
+			//		{
+			//			val2 = val;
+			//		}
+			//	}
+			//	return val1 - val2;
+			//}
 			#region CORRECTION COMPUTE
 			Console.WriteLine("RangeOfValues(values) : " + RangeOfValues(values));
 			Console.WriteLine("RangeOfValues(null) : " + RangeOfValues(null));
 			#endregion
 		}
 
-		//static int Compute(int[] pValues)
-		//{
-		//	int val1, val2;
-		//	foreach (int val in pValues)
-		//	{
-		//		if (val1 > val)
-		//		{
-		//			val1 = val;
-		//		}
+		#region CORRECTION INDEXOF
+		static int IndexOf(int[] pValues, int pVal)
+		{
+			for (int i = 0; i < pValues.Length; ++i)
+			{
+				if (pVal == pValues[i])
+				{
+					return i; // pVal found
+				}
+			}
+			return -1; // pVal not found.
+		}
+		#endregion
 
-		//		if (val2 < val)
-		//		{
-		//			val2 = val;
-		//		}
-		//	}
-		//	return val1 - val2;
-		//}
+		// struct-type parameters are always passed by copy.
+		static void CopyTest(int pTest)
+		{
+			Console.WriteLine("pTest : " + pTest);
+			pTest = 3;
+			Console.WriteLine("pTest : " + pTest);
+		}
+
+		// class-type (Array, List, etc...) are all passed by reference.
+		static void ReferenceTest(int[] pValues)
+		{
+			Console.WriteLine("pValues[0] : " + pValues[0]);
+			pValues[0] = 3;
+			Console.WriteLine("pValues[0] : " + pValues[0]);
+		}
 
 		#region CORRECTION COMPUTE
-		// Compute method fixed.
-		// - Naming of Method + variables was not informative.
+		// Compute method fixes:
+		// - Naming of method and variables because it was not understandable.
 		// - val1 & val2 were not initialised.
 		// - Algorithm was wrong : val > val1 ; val < val2
 		// - Adds default result of 0 in case pValues.Count == 0 or pValues is null.
 		// - default value for min & max : pValues[0].
-		// - Algorithm can be optimized with : for loop starting from index 1 + else if.
-		// - Return value overflow in case pValues contains int.Min & int.Max.
+		// - Algorithm can be optimized : for loop starting from index 1 instead of 0 ; "else if" statement instead of 2x "if".
+		// - Returning an int value can overflow in case pValues array contains int.Min & int.Max : using a uint can handle the value of : int.Max - int.Min
 		static uint RangeOfValues(int[] pValues)
 		{
 			// Edge case
@@ -713,62 +763,34 @@ namespace BasicsProg
 		}
 		#endregion
 
-		static int IndexOf(int[] pValues, int pVal)
-		{
-			for (int i = 0; i < pValues.Length; ++i)
-			{
-				if (pVal == pValues[i])
-				{
-					return i; // pVal found
-				}
-			}
-			return -1; // pVal not found.
-		}
-
-		// A simple method returning an integer.
-		static int IntegerTest()
-		{
-			return 0;
-		}
-
-		// A method returning an integer as the product of its two parameters : a & b.
-		static int Multiply(int a, int b)
-		{
-			return a * b;
-		}
-
-		// struct-type parameters are always passed by copy.
-		static void CopyTest(int pTest)
-		{
-			Console.WriteLine("pTest : " + pTest);
-			pTest = 3;
-			Console.WriteLine("pTest : " + pTest);
-		}
-
-		// class-type (Array, List, etc...) are all passed by reference.
-		static void ReferenceTest(int[] pValues)
-		{
-			Console.WriteLine("pValues[0] : " + pValues[0]);
-			pValues[0] = 3;
-			Console.WriteLine("pValues[0] : " + pValues[0]);
-		}
-
 		// 13. Class
 		// You can declare a class inside another class.
+		// Here we declare the class MyFirstClass inside the class Program.
 		class MyFirstClass
 		{
-			// "public" Keyword allow to call from the outside.
-			// Default is "private" and doesn't allow access from the outside.
-			public string attribute = "attribute"; // an attribute.
+			// "public" Keyword allow us to access from the outside of this class.
+			public string name = "default"; // an instance attribute.
+			// "private" doesn't allow access from the outside of this class.
+			private int _instanceNumber = 0; // another instance attribute.
+
+			private static int _instancesCount = 0; // a static attribute is not related to any instances.
+
+			// Constructor
+			// Declaring a constructor is optional unless you really need it.
+			// A construcor is called automatically each time an object of type MyFirstClass is instantiated.
+			public MyFirstClass()
+			{
+				_instanceNumber = ++_instancesCount; // _instancesCount is incremented each time an object of type MyFirstClass is instantiated.
+			}
 
 			public void InstanceMethod()
 			{
-				Console.WriteLine("InstanceMethod called from an instance. attribute is : " + attribute);
+				Console.WriteLine(string.Format("InstanceMethod called on instance {0} with name {1}", _instanceNumber, name));
 			}
 
 			public static void StaticMethod()
 			{
-				Console.WriteLine("StaticMethod called from anywhere.");
+				Console.WriteLine("StaticMethod not called from an instance !");
 			}
 		}
 
@@ -776,23 +798,20 @@ namespace BasicsProg
 		{
 			Console.WriteLine("====Class Test====");
 			// Instantiation of an object of type MyFirstClass.
-			MyFirstClass instance = new MyFirstClass();
-			Console.WriteLine("instance.attribute : " + instance.attribute); // attribute has default value "attribute".
-			instance.attribute = "This works !"; // Modify attribute of object.
-			Console.WriteLine("instance.attribute : " + instance.attribute);
-
+			MyFirstClass instance1 = new MyFirstClass();
+			instance1.InstanceMethod(); // name has value "default".
+			instance1.name = "thales"; // we can modify the attribute name because it is publicly accessible.
+			instance1.InstanceMethod(); // name has value "thales".
+			// Create a second instance
 			MyFirstClass instance2 = new MyFirstClass();
-			Console.WriteLine("instance2.attribute : " + instance2.attribute); // attribute has default value "attribute".
-			instance2 = instance; // instance2 now points to the same object as instance.
+			instance2.InstanceMethod(); // name has value "default".
+			instance2.name = "pythagore"; // we can modify the attribute name because it is publicly accessible.
+			instance2.InstanceMethod(); // name has value "pythagore".
+			// Here there is no copy 
+			instance2 = instance1; // instance2 now points to the same object as instance.
 			Console.WriteLine("instance2 = instance");
-			Console.WriteLine("instance2.attribute : " + instance2.attribute);
+			instance2.InstanceMethod(); // name has value "thales".
 			// EXPLAIN HERE THE REFERENCE MECHANISM WITH A SCHEMA OF MEMORY
-
-			// Instance methods can be called.
-			Console.Write("instance : ");
-			instance.InstanceMethod();
-			Console.Write("instance2 : ");
-			instance2.InstanceMethod();
 
 			// Static method cannot be called from an instance.
 			// But we can call static methods directly, like this.
@@ -804,14 +823,15 @@ namespace BasicsProg
 		static void FileTest()
 		{
 			Console.WriteLine("====File Test====");
+			// Create a file.
 			string filepath = "./TestFile.txt";
 			string filecontent = "This is my first file.\nAnd I'm proud of it !";
-			// Write to file.
 			File.WriteAllText(filepath, filecontent);
-			// Read the file.
+			// Check if the file exists.
 			if(File.Exists(filepath))
 			{
-				string filename = Path.GetFileName(filepath);
+				// Read the file
+				string filename = Path.GetFileName(filepath); // get the filename without the path.
 				Console.WriteLine("File \"" + filename + "\" opened successfully:");
 				Console.WriteLine(File.ReadAllText(filepath)); // print filecontent to the console.
 			}
