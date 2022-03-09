@@ -798,8 +798,9 @@ namespace BasicsProg
 					min = pValues[i];
 				}
 			}
-			// 8. Edge case : convert to uint to handle a maximum value of (int.Max - int.Min).
-			return (uint)(max - min);
+			// 8. Edge case
+			int range = max - min; // this value can overflow.
+			return (uint)range; // this value is safe because uint type can handle a maximum value of (int.Max - int.Min).
 		}
 		#endregion
 
@@ -848,8 +849,8 @@ namespace BasicsProg
 			instance2.name = "pythagore"; // we can modify the attribute name because it is publicly accessible.
 			instance2.InstanceMethod(); // name has value "pythagore".
 			// Here there is no copy 
-			instance2 = instance1; // instance2 now points to the same object as instance.
-			Console.WriteLine("instance2 = instance");
+			instance2 = instance1; // instance2 now points to the same object as instance1.
+			Console.WriteLine("instance2 = instance1");
 			instance2.InstanceMethod(); // name has value "thales".
 			// EXPLAIN HERE THE REFERENCE MECHANISM WITH A SCHEMA OF MEMORY
 
@@ -857,7 +858,7 @@ namespace BasicsProg
 			// But we can call static methods directly, like this.
 			MyFirstClass.StaticMethod();
 
-		}// instance & instance2 objects destroyed here.
+		}// instance1 & instance2 objects destroyed here.
 
 		// 14. File
 		static void FileTest()
