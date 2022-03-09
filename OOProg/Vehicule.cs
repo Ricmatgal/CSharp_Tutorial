@@ -2,9 +2,18 @@
 
 namespace OOProg
 {
-	// enum can be interpreted as an integer value.
+	// an enum can be :
+	// - interpreted as an integer value.
+	// - easyly converted to a string using method ToString().
 	public enum Direction { Left, Forward, Right }
 
+	// EXERCISE 1
+	// Create a class Vehicule with :
+	// - an attribute wheelsCount
+	// - a property MaxSpeed
+	// - a method returning void, with a parameter of type Direction, called Move. This method should print "Vehicule moved to direction : " + direction(parameter).
+	// - a method returning a string called ToString. This method should print the name of the class and the values of its attributes.
+	#region CORRECTION 1
 	// Abstract class cannot be instantiated.
 	//public abstract class Vehicule
 	public class Vehicule
@@ -30,6 +39,7 @@ namespace OOProg
 			return "Vehicule : #Wheels(" + _wheelsCount + ") | Max speed (" + MaxSpeed + ")";
 		}
 	}
+	#endregion
 
 	// This child class inherit from Vehicule and can extend its functionalities.
 	public class Car : Vehicule
@@ -37,6 +47,7 @@ namespace OOProg
 		// This a constructor.
 		// It is called when instantiating the object.
 		// Ex: Vehicule car = new Car();
+		// Ex2: Car car = new Car();
 		public Car()
 		{
 			_wheelsCount = 4u;
@@ -46,25 +57,32 @@ namespace OOProg
 		// Override means this method will be called instead of the one from base class.
 		public override void Move(Direction pDirection)
 		{
-			//base.Move(pDirection); // you can call the method from the parent class if you want
+			// you can call the method from the parent (base) class if you want
+			//base.Move(pDirection);
 			// and then add the code specific to the child class.
 			Console.WriteLine("Car moved to direction : " + pDirection);
 		}
 
-		// All types derive from object by default, and can override the ToString() method.
+		// All types inherit from object by default, and can override the ToString() method.
 		public override string ToString()
 		{
 			return "Car : #Wheels(" + _wheelsCount + ") | Max speed (" + MaxSpeed + ")";
 		}
 	}
 
+	// EXERCISE 2
+	// Create 2 others child classes:
+	// - a class Bike with 2 wheels and max speed 45.
+	// - a class Bus with 8 wheels and max speed 90.
+
+	#region CORRECTION 2
 	// Just another child class.
 	public class Bike : Vehicule
 	{
 		public Bike()
 		{
 			_wheelsCount = 2u;
-			MaxSpeed = 200u;
+			MaxSpeed = 45u;
 		}
 
 		public override void Move(Direction pDirection)
@@ -97,4 +115,5 @@ namespace OOProg
 			return "Bus : #Wheels(" + _wheelsCount + ") | Max speed (" + MaxSpeed + ")";
 		}
 	}
+	#endregion
 }

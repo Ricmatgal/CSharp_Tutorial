@@ -35,7 +35,7 @@ namespace BasicsProg
 			//ArrayTest();
 			//ListTest();
 			//DictionnaryTest();
-			LoopsTest();
+			//LoopsTest();
 			//MethodsTest();
 			//ClassTest();
 			//FileTest();
@@ -57,19 +57,19 @@ namespace BasicsProg
 			Console.WriteLine("====Variables Test====");
 			// These are variables.
 			bool myBoolean = true;
-			Console.WriteLine("myBoolean : " + myBoolean);
+			Console.WriteLine("myBoolean : " + myBoolean + " (memory size : " + sizeof(bool) * 8 + " bits)");
 			byte myByte = byte.MaxValue; // 8 bits, max value : 255
-			Console.WriteLine("myByte : " + myByte);
+			Console.WriteLine("myByte : " + myByte + " (memory size : " + sizeof(byte) * 8 + " bits)");
 			int myInt = int.MinValue; // 32 bits
-			Console.WriteLine("myInt : " + myInt);
+			Console.WriteLine("myInt : " + myInt + " (memory size : " + sizeof(int) * 8 + " bits)");
 			float myFloat = 1.3f; // 32 bits
-			Console.WriteLine("myFloat : " + myFloat);
+			Console.WriteLine("myFloat : " + myFloat + " (memory size : " + sizeof(float) * 8 + " bits)");
+			double myDouble = 1.75; // 64 bits
+			Console.WriteLine("myDouble : " + myDouble + " (memory size : " + sizeof(double) * 8 + " bits)");
 			char myChar = 'a'; // 16 bits
-			Console.WriteLine("myChar : " + myChar);
+			Console.WriteLine("myChar : " + myChar + " (memory size : " + sizeof(char) * 8 + " bits)");
 			string myName = "John"; // string is an array of chars
 			Console.WriteLine("myName : " + myName);
-			double myDouble = 1.75; // 64 bits
-			Console.WriteLine("myDouble : " + myDouble);
 
 			// EXERCISE : DEFINE THREE VARIABLES:
 			// A string named productName equal to TV.
@@ -118,20 +118,20 @@ namespace BasicsProg
 			sentence += "chess.";
 			Console.WriteLine("sentence : " + sentence);
 			// String Substring
-			string sentence2 = sentence.Substring(1);
+			string sentence2 = sentence.Substring(1); // returns a string starting at index 1 until the end => 'I' is removed.
 			Console.WriteLine("sentence2 : " + sentence2);
-			sentence2 = fullName + sentence2;
+			sentence2 = fullName + sentence2; // "John Smith like to play chess."
 			Console.WriteLine("sentence2 : " + sentence2);
 			// Search
 			int cPos = sentence2.IndexOf('c'); // returns the index of 'c' in the string
-											   // Remove
+			// Remove
 			sentence2 = sentence2.Substring(0, cPos - 1) + '.'; // returns a string with "chess." removed
 			Console.WriteLine("sentence2 : " + sentence2);
 			// Replace
 			sentence2 = sentence2.Replace("Smith", "Carter");
 			Console.WriteLine("sentence2 : " + sentence2);
 			// string formating
-			string numbers = string.Format("Numbers : {0} ; {1} ; {2}", 11, 22, 33); // returns "Numbers : 11 ; 22 ; 33"
+			string numbers = string.Format("Numbers : {0} ; {1} ; {2}", 11, 22, 33); // "Numbers : 11 ; 22 ; 33"
 			Console.WriteLine("numbers : " + numbers);
 
 			// EXERCISE
@@ -165,9 +165,9 @@ namespace BasicsProg
 			// The majority of program bugs & computation errors come from overflow.
 			Console.WriteLine("====Overflow Test====");
 			myByte += 3; // 255 + 3 should be 258 but it is not because we overflow the 8-bit capacity of the byte type.
-			Console.WriteLine("myByte + 3 : " + myByte);
+			Console.WriteLine("myByte + 3 : " + myByte + " => Overflow !!! (result should be : 258)");
 			myInt -= 3; // -2 147 483 648 - 3 should be -2 147 483 651 but it is not because we overflow the 32-bit capacity of the int type.
-			Console.WriteLine("myInt - 3 : " + myInt);
+			Console.WriteLine("myInt - 3 : " + myInt + " => Overflow !!! (result should be : -2 147 483 651)");
 
 			// Basic Operations.
 			Console.WriteLine("====Operations Test====");
@@ -182,7 +182,7 @@ namespace BasicsProg
 			Console.WriteLine("X * Y = " + product);
 			int quotient = x / y; // integral types truncate the result by default.
 			Console.WriteLine("X / Y = " + quotient);
-			int remainder = x % y; // the remainder of the division.
+			int remainder = x % y; // "modulus" operation gives the remainder of the division.
 			Console.WriteLine("X % Y = " + remainder);
 
 			// Conversions
@@ -190,17 +190,17 @@ namespace BasicsProg
 			// We can convert a float to a double directly (32 bits => 64 bits).
 			double myFloatAsDouble = myFloat;
 			Console.WriteLine("myfloat as double : " + myFloatAsDouble);
-			// We can convert a double to a float using a cast (64 bits => 32 bits).
-			float myDoubleAsFloat = (float)myDouble; // cast is mandatory because this conversion is dangerous.
+			// We can convert a double to a float using a cast
+			float myDoubleAsFloat = (float)myDouble; // cast is mandatory because this conversion is dangerous : high risk of overflow (64 bits => 32 bits).
 			Console.WriteLine("myDouble as float : " + myDoubleAsFloat);
-			// We can convert float to int but we will lose the accuracy. (32 bits => 32 bits)
-			int myFloatAsInt = (int)myFloat; // cast is mandatory because this conversion is not trivial.
+			// We can convert float to int (32 bits => 32 bits) but we will lose the decimal part.
+			int myFloatAsInt = (int)myFloat; // cast is mandatory
 			Console.WriteLine("myFloat as int : " + myFloatAsInt);
 			Console.WriteLine("myFloat as int (floor) : " + Math.Floor(myFloat));
 			Console.WriteLine("myFloat as int (ceiling) : " + Math.Ceiling(myFloat));
 			Console.WriteLine("myFloat as int (rounding) : " + Math.Round(myFloat));
 			// EXERCISE : convert double to int.
-			// This conversion is dangerous and we will lose the accuracy. (64 bits => 32 bits)
+			// This conversion is dangerous (64 bits => 32 bits) and we will lose the decimal part.
 			#region CORRECTION
 			int myDoubleAsInt = (int)myDouble; // cast is mandatory because this conversion is dangerous.
 			#endregion
@@ -223,7 +223,10 @@ namespace BasicsProg
 			// String to number test
 			string myStringNum = "10";
 			int myNum = int.Parse(myStringNum);
-			Console.WriteLine("myNum from String : " + myNum);
+			Console.WriteLine("myNum (int) from String : " + myNum);
+			myStringNum = "10.000";
+			float myFloatNum = float.Parse(myStringNum);
+			Console.WriteLine("myNum (float) from String : " + myFloatNum.ToString("f3")); // "f3" => prints 3 decimals after the '.'
 
 			// EXERCISE : Cast sum/diff/product/quotient/remainder to float.
 			#region CORRECTION
@@ -235,9 +238,9 @@ namespace BasicsProg
 			Console.WriteLine("quotientAsFloat : " + quotientAsFloat);
 			float remainderAsFloat = (float)remainder;
 			Console.WriteLine("remainderAsFloat : " + remainderAsFloat);
-			// How to get the accurate value of quotient ?
-			float accurateQuotient = (float)x / (float)y; // int to float conversion is implicit, but here we need the accuracy of a division with 2 floats.
-			Console.WriteLine("accurateQuotient : " + accurateQuotient);
+			// How to get the accurate decimal value of quotient ?
+			float accurateQuotientAsFloat = (float)x / (float)y; // int to float conversion is implicit, but here we need the accuracy of a division with 2 floats.
+			Console.WriteLine("accurateQuotientAsFloat : " + accurateQuotientAsFloat);
 			#endregion
 		}
 
@@ -275,7 +278,7 @@ namespace BasicsProg
 				Console.WriteLine("a != b");
 			}
 
-			// if/else
+			// if / else
 			if (a == b)
 			{
 				// Sorry this is not true.
@@ -285,7 +288,7 @@ namespace BasicsProg
 				Console.WriteLine("Again : a != b");
 			}
 
-			// if/else if/else
+			// if / else if / else
 			// You can add as many "else if" as you want.
 			if (a == b)
 			{
@@ -349,14 +352,15 @@ namespace BasicsProg
 			Console.WriteLine(string.Format("nums : {0} ; {1} ; {2} ; {3} ; {4}", first, second, third, fourth, fifth));
 
 			// Define an empty array of size 10.
-			// "new" is a keyword to allocate memory. Here we ask to allocate 10 x 32 bits.
+			// "new" is a keyword to allocate memory. Here we ask to allocate 10 x 32 bits (int).
 			// The garbage collector will free this allocated memory automatically when the array object will not be referenced anywhere (at the end of the ArrayTest method in this situation).
 			int[] nums2 = new int[10];
 			Console.WriteLine("nums2 length : " + nums2.Length);
 
 			Console.WriteLine("====Multidimensional Array Test====");
-			// Declare a matrix.
+			// Declare a matrix (= 2D Array).
 			// Size is fixed (set once for all) in all dimensions.
+			// An array can have a maximum of 32 dimensions.
 			int[,] matrix = new int[2, 3];
 			// Then fill it.
 			matrix[0, 0] = 41;
@@ -379,7 +383,7 @@ namespace BasicsProg
 			jaggedArray[1] = new int[] { 40, 50, 60, 70 };
 			jaggedArray[2] = new int[] { 80, 90, 100, 110, 120 };
 			Console.WriteLine("jaggedArray[2, 4] : " + jaggedArray[2][4]);
-			//Console.WriteLine("jaggedArray[2, 4] : " + jaggedArray[1][4]); // out of range.
+			//Console.WriteLine("jaggedArray[1, 4] : " + jaggedArray[1][4]); // out of range.
 
 			// EXERCISE : Define an array called fruits that holds the following strings: "apple", "banana", and "orange".
 			#region CORRECTION
@@ -419,8 +423,10 @@ namespace BasicsProg
 			Console.WriteLine(string.Format("fruits : {0} ; {1} ; {2}", fruits[0], fruits[1], fruits[2]));
 			Console.WriteLine(string.Format("fruits has {0} elements.", fruits.Count));
 			// Remove
-			fruits.Remove("banana"); // remove the "banana" element from the list if found.
-			Console.WriteLine("banana removed.");
+			if (fruits.Remove("banana")) // remove the "banana" element from the list if present.
+			{
+				Console.WriteLine("banana removed.");
+			}
 			Console.WriteLine(string.Format("fruits has {0} elements.", fruits.Count));
 			fruits.Add("banana");
 			Console.WriteLine("banana is back.");
@@ -449,11 +455,12 @@ namespace BasicsProg
 			}
 
 			// EXERCISE : Construct a list of the first 5 prime numbers(2, 3, 5, 7, 11) called primeNumbers
-			// Then remove the first and last element.
+			// Then remove the first and last elements.
 			#region CORRECTION
 			List<int> primeNumbers = new List<int>();
 			primeNumbers.AddRange(new int[] { 2, 3, 5, 7, 11 });
-			// Initialisation one by one.
+			Console.WriteLine("Prime numbers : {0} ; {1} ; {2} ; {3} ; {4}", primeNumbers[0], primeNumbers[1], primeNumbers[2], primeNumbers[3], primeNumbers[4]);
+			// Add elements one by one.
 			//primeNumbers.Add(2);
 			//primeNumbers.Add(3);
 			//primeNumbers.Add(5);
@@ -461,6 +468,8 @@ namespace BasicsProg
 			//primeNumbers.Add(11);
 			primeNumbers.RemoveAt(0); // remove first element
 			primeNumbers.RemoveAt(primeNumbers.Count - 1); // remove last element
+			Console.WriteLine("Prime numbers : first and last elements removed.");
+			Console.WriteLine("Prime numbers : {0} ; {1} ; {2}", primeNumbers[0], primeNumbers[1], primeNumbers[2]);
 			#endregion
 		}
 
@@ -477,10 +486,11 @@ namespace BasicsProg
 			Console.WriteLine("Alex's number is " + phonebook["Alex"]);
 			// Another way to add a pair.
 			// This method adds a pair if key not already exists.
+			// Otherwise the existing value is overriden.
 			phonebook["Jessica"] = 4159484588;
 			Console.WriteLine("phonebook has {0} elements.", phonebook.Count);
 			//phonebook.Add("Alex", 0654249543); // Throw an excception : because of duplicate key.
-			// Modifying an existing key is allowed.
+			// Overriding an existing value is allowed.
 			phonebook["Alex"] = 4154249543;
 			// Search
 			if (phonebook.ContainsKey("Alex"))
@@ -488,29 +498,47 @@ namespace BasicsProg
 				Console.WriteLine("Alex's new number is " + phonebook["Alex"]);
 			}
 			// Another fastest way to search.
+			// "out" keyword means the parameter is an output of the function.
 			if (phonebook.TryGetValue("Jessica", out long number))
 			{
+				// This is executed only if key "Jessica" exists (with its associated value).
 				Console.WriteLine("Jessica's number is " + number);
 			}
 			// Remove
-			phonebook.Remove("Jessica");
-			if (!phonebook.ContainsKey("Jessica"))
+			if(phonebook.Remove("Jessica"))
 			{
 				Console.WriteLine("Jessica has been removed");
+			}
+			if (!phonebook.ContainsKey("Jessica"))
+			{
+				Console.WriteLine("I can confirm Jessica has been removed");
 			}
 			Console.WriteLine("phonebook has {0} elements.", phonebook.Count);
 
 			// EXERCISE
-			// Create a new dictionary called inventory that holds 3 names of fruits, and the amount they are in stock.
+			// Create a new dictionary called inventory that holds 3 names of fruits, and the quantity they are in stock.
 			// Here is the inventory specification:
 			// 3 of type apple
 			// 5 of type orange
 			// 2 of type banana
+			// 
+			// Then check how many ananas there are in the inventory.
+			// You can create a variable called fruitToCheck to use to check the quantity of any fruit.
 			#region CORRECTION
 			Dictionary<string, int> inventory = new Dictionary<string, int>();
 			inventory.Add("apple", 3);
 			inventory.Add("orange", 5);
 			inventory.Add("banana", 2);
+			// Check quantity of any fruit.
+			string fruitToCheck = "ananas";
+			if(inventory.TryGetValue(fruitToCheck, out int quantity))
+			{
+				Console.WriteLine(fruitToCheck + " quantity : " + quantity);
+			}
+			else
+			{
+				Console.WriteLine(fruitToCheck + " not found in the inventory !");
+			}
 			#endregion
 		}
 
@@ -519,11 +547,10 @@ namespace BasicsProg
 		{
 			Console.WriteLine("====For Loops Test====");
 			// Typical for loop.
-			// i++ means "give the value of i, then increment i"
-			// ++i means "increment i, then gives the value of i"
 			{
 				int i;
 				// (iterator initialization; stop condition; iterator increment)
+				// ++i / i++ / i+=1 are equivalent.
 				for (i = 0; i < 10; ++i)
 				{
 					Console.WriteLine("i outside : " + i); // call for i [0;9]
@@ -553,7 +580,7 @@ namespace BasicsProg
 				{
 					continue; // continue go directly to the next iteration.
 				}
-				Console.WriteLine("i (continue): " + i); // this is not called when i % 2 == 1, so only even numbers from 0 to 15 are printed
+				Console.WriteLine("i (continue): " + i); // this is not executed when i % 2 == 1, so only even numbers from 0 to 15 are printed
 			}
 
 			// EXERCISE
@@ -596,7 +623,7 @@ namespace BasicsProg
 			#endregion
 
 			Console.WriteLine("====While Loops Test====");
-			int n = 0;
+			int n = 0; // Using while loops, you need to initialize an iterator first.
 			// Loops while n < 2 with "while"
 			while (n < 2)
 			{
@@ -615,12 +642,14 @@ namespace BasicsProg
 			// 2. Print programming languages using a for loop.
 			#region CORRECTION
 			// 1.
+			Console.WriteLine("Loops with while :");
 			n = 0;
 			while (n < programming.Length)
 			{
 				Console.WriteLine("language : " + programming[n++]);
 			}
 			// 2.
+			Console.WriteLine("Loops with for :");
 			for (int i = 0; i < programming.Length; ++i)
 			{
 				Console.WriteLine("language : " + programming[i]);
@@ -650,7 +679,7 @@ namespace BasicsProg
 			Console.WriteLine(string.Format("Multiply({0}, {1}) returns : {2}", 4, 5, Multiply(4, 5)));
 
 			// EXERCISE
-			// Create a method which take 2 parameters : an array of integer values, and a integer value to look for in the array.
+			// Create a method which take 2 parameters : an array of integer values, and a integer value to check if it is present in the array.
 			// The method must return the index of the integer value if found in the array, otherwise it returns -1.
 			#region CORRECTION INDEXOF
 			int[] values = { 1, -2, 3, 44, int.MinValue, 6, 9, int.MaxValue, 101, 56 };
@@ -678,23 +707,28 @@ namespace BasicsProg
 			//static int Compute(int[] pValues)
 			//{
 			//	int val1, val2;
-			//	foreach (int val in pValues)
+			//	for (int i = 0; i <= pValues.Length; ++i)
 			//	{
-			//		if (val1 > val)
+			//		if (val1 > pValues[i])
 			//		{
-			//			val1 = val;
+			//			val1 = pValues[i];
 			//		}
 			//
-			//		if (val2 < val)
+			//		if (val2 < pValues[i])
 			//		{
-			//			val2 = val;
+			//			val2 = pValues[i];
 			//		}
 			//	}
 			//	return val1 - val2;
 			//}
 			#region CORRECTION COMPUTE
-			Console.WriteLine("RangeOfValues(values) : " + RangeOfValues(values));
-			Console.WriteLine("RangeOfValues(null) : " + RangeOfValues(null));
+			Console.WriteLine("RangeOfValues({2, 5, 10}) : " + RangeOfValues(new int[] { 2, 5, 10 }));
+			Console.WriteLine("RangeOfValues({-2, 5, 10}) : " + RangeOfValues(new int[] { -2, 5, 10 }));
+			Console.WriteLine("RangeOfValues({-2, 5, -10}) : " + RangeOfValues(new int[] { -2, 5, -10 }));
+			Console.WriteLine("RangeOfValues(null) : " + RangeOfValues(null)); // Test Edge case 5 : array is null
+			Console.WriteLine("RangeOfValues({ }) : " + RangeOfValues(new int[] { })); // Test Edge case 5 : array length is 0.
+			Console.WriteLine("RangeOfValues({2}) : " + RangeOfValues(new int[] { 2 })); // Test Edge case 6 : array length is 1.
+			Console.WriteLine("RangeOfValues({ int.Min, 2, int.Max }) : " + RangeOfValues(new int[] { int.MinValue, 2, int.MaxValue })); // Test Edge case 8 : array contains int.Min or int.Max
 			#endregion
 		}
 
@@ -730,23 +764,29 @@ namespace BasicsProg
 
 		#region CORRECTION COMPUTE
 		// Compute method fixes:
-		// - Naming of method and variables because it was not understandable.
-		// - val1 & val2 were not initialised.
-		// - Algorithm was wrong : val > val1 ; val < val2
-		// - Adds default result of 0 in case pValues.Count == 0 or pValues is null.
-		// - default value for min & max : pValues[0].
-		// - Algorithm can be optimized : for loop starting from index 1 instead of 0 ; "else if" statement instead of 2x "if".
-		// - Returning an int value can overflow in case pValues array contains int.Min & int.Max : using a uint can handle the value of : int.Max - int.Min
+		// 1. Naming of function and variables because it is not obvious to understand their meaning.
+		// 2. val1 & val2 are not initialized !
+		// 3. for loop is going out of range with stop condition : i <= pValues.Length
+		// 4. Algorithm is wrong :
+		//    - if(val1 > pValues[i]) => if(pValues[i] > val1)
+		//    - if(val2 < pValues[i]) => if(pValues[i] < val2)
+		// 5. Edge case : should return 0 in case pValues.Count == 0 or pValues is null.
+		// 6. Edge case : if only one element in the array, we can consider : element = min = max => Default value for min & max : pValues[0].
+		// 7. Algorithm can be optimized :
+		//    - for loop starting from index 1 instead of 0
+		//    - "else if" statement, instead of 2x "if" (the 2x "if" are always executed)
+		// 8. Edge case : Returning an int value can overflow in case pValues array contains int.Min or int.Max : using a uint can handle the value of : int.Max - int.Min.
 		static uint RangeOfValues(int[] pValues)
 		{
-			// Edge case
+			// 5. Edge case
+			// swapping the two conditions can crash => always check for nullity first !
 			if (pValues == null || pValues.Length == 0)
 			{
 				return 0u;
 			}
 
 			int min, max;
-			min = max = pValues[0];
+			min = max = pValues[0]; // 6. Edge case : if pValues.Length == 1 => (max - min) = 0 (expected result).
 			for (int i = 1; i < pValues.Length; ++i)
 			{
 				if (pValues[i] > max)
@@ -758,7 +798,7 @@ namespace BasicsProg
 					min = pValues[i];
 				}
 			}
-			// Edge case : convert to uint in case int.Max - int.Min.
+			// 8. Edge case : convert to uint to handle a maximum value of (int.Max - int.Min).
 			return (uint)(max - min);
 		}
 		#endregion
