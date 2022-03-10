@@ -632,7 +632,7 @@ namespace BasicsProg
 				if (language == "Python")
 				{
 					pythonFound = true;
-					// Don't need to look further.
+					// Don't need to look further. Stops the loop.
 					break;
 				}
 			}
@@ -644,14 +644,14 @@ namespace BasicsProg
 			// Loops while n < 2 with "while"
 			while (n < 2)
 			{
-				Console.WriteLine("n (while): " + n++); // n++ : give the value of n, then increment n.
+				Console.WriteLine("n (while): " + (n++)); // n++ : give the value of n, then increment n.
 			}
 
 			// Loops while n < 2 with "do while"
 			n = 0;
 			do
 			{
-				Console.WriteLine("n (do while): " + ++n); // ++n : increment n, then give the value of n.
+				Console.WriteLine("n (do while): " + (++n)); // ++n : increment n, then give the value of n.
 			} while (n < 2);
 
 			// EXERCISE
@@ -726,8 +726,8 @@ namespace BasicsProg
 			Console.WriteLine("nums3 : {0} ; {1}", nums3[0], nums3[1]);
 			Console.WriteLine("nums4 : {0} ; {1}", nums4[0], nums4[1]);
 			int[] tmp = nums3; // tmp references nums3 array
-			nums3 = nums4; // nums3 reference nums4 array
-			nums4 = tmp; // nums4 reference tmp array which is nums3 array
+			nums3 = nums4; // nums3 references nums4 array
+			nums4 = tmp; // nums4 references tmp array which references initial nums3 array
 			Console.WriteLine("nums3 & nums4 references swapped !");
 			Console.WriteLine("nums3 : {0} ; {1}", nums3[0], nums3[1]);
 			Console.WriteLine("nums4 : {0} ; {1}", nums4[0], nums4[1]);
@@ -747,11 +747,18 @@ namespace BasicsProg
 			return a * b;
 		}
 
+		// Another method called "Multiply", returning an integer, but as the product of 3 parameters : a & b & c.
+		static int Multiply(int a, int b, int c)
+		{
+			return a * b * c;
+		}
+
 		static void MethodsTest()
 		{
 			Console.WriteLine("====Methods Test====");
 			Console.WriteLine("MethodTest returns : " + IntegerTest());
-			Console.WriteLine(string.Format("Multiply({0}, {1}) returns : {2}", 4, 5, Multiply(4, 5)));
+			Console.WriteLine("Multiply({0}, {1}) returns : {2}", 4, 5, Multiply(4, 5)); // Multiply(a, b) is called here.
+			Console.WriteLine("Multiply({0}, {1}, {2}) returns : {3}", 4, 5, 6, Multiply(4, 5, 6)); // Multiply(a, b, c) is called here.
 
 			// EXERCISE
 			// Create a method which take 2 parameters : an array of integer values, and a integer value to check if it is present in the array.
@@ -781,12 +788,14 @@ namespace BasicsProg
 			Console.WriteLine("====Reference Test2====");
 			a = 5; // Reset a to 5.
 			Console.WriteLine("a : " + a);
-			ReferenceTest2(ref a); // We can also pass struct types as reference using the keyword "ref".
+			// We can also pass struct types as reference using the keyword "ref".
+			ReferenceTest2(ref a); // "ref" means : the function is going to modify the value of the parameter.
 			Console.WriteLine("a : " + a);
 
 			Console.WriteLine("====Reference Test3====");
-			int b; // b should be non-initialized using the keyword "out".
-			ReferenceTest3(out b); // We can also pass struct types as reference using the keyword "out".
+			// We can also pass struct types as reference using the keyword "out".
+			// b should be not initialized using the keyword "out".
+			ReferenceTest3(out int b); // "out" means : the function is going to return a value through the parameter.
 			Console.WriteLine("b : " + b);
 
 
@@ -887,17 +896,24 @@ namespace BasicsProg
 		#region CORRECTION COMPUTE
 		// Compute method fixes:
 		// 1. Naming of function and variables because it is not obvious to understand their meaning.
+		// => Always name things (function, variables, ...) to be self-explanatory !
+		// It will be easier to understand for everyone and shouldn't require lot of documentation.
 		// 2. val1 & val2 are not initialized !
+		// => Always initialize your variables with the best "default" value for your current algorithm !
 		// 3. for loop is going out of range with stop condition : i <= pValues.Length
+		// => Checks for infinite loops !
 		// 4. Algorithm is wrong :
 		//    - if(val1 > pValues[i]) => if(pValues[i] > val1)
 		//    - if(val2 < pValues[i]) => if(pValues[i] < val2)
-		// 5. Edge case : should return 0 in case pValues.Count == 0 or pValues is null.
+		// => Try to anticipate any case where your function could return a wrong result (edge cases) ! 
+		// 5. Edge case : should return 0 in case pValues is null or pValues.Count == 0.
 		// 6. Edge case : if only one element in the array, we can consider : element = min = max => Default value for min & max : pValues[0].
 		// 7. Algorithm can be optimized :
-		//    - for loop starting from index 1 instead of 0
+		//    - for loop starting from index 1, instead of 0
 		//    - "else if" statement, instead of 2x "if" (the 2x "if" are always executed)
-		// 8. Edge case : Returning an int value can overflow in case pValues array contains int.Min or int.Max : using a uint can handle the value of : int.Max - int.Min.
+		// => Optimizing your code should always be the final step to do, after you already checked : 
+		// naming, initialization, errors (infinite loops, overflows, bad logic, wrong algorithms).
+		// 8. Edge case : Returning an int value can overflow in case pValues array contains int.Min or int.Max : using a uint can handle the maximal theoretical value (int.Max - int.Min).
 		static uint RangeOfValues(int[] pValues)
 		{
 			// 5. Edge case
@@ -921,8 +937,8 @@ namespace BasicsProg
 				}
 			}
 			// 8. Edge case
-			int range = max - min; // this value can overflow.
-			return (uint)range; // this value is safe because uint type can handle a maximum value of (int.Max - int.Min).
+			int range = max - min; // this value can overflow because we only have 31 bits of data in a int (the 32th bit is reserved for the sign).
+			return (uint)range; // uint is safe because it can handle the maximum theoretical value (int.Max - int.Min), thanks to its 32 bits of data.
 		}
 		#endregion
 
@@ -974,7 +990,7 @@ namespace BasicsProg
 			instance2 = instance1; // instance2 now points to the same object as instance1.
 			Console.WriteLine("instance2 = instance1");
 			instance2.InstanceMethod(); // name has value "thales".
-			// EXPLAIN HERE THE REFERENCE MECHANISM WITH A SCHEMA OF MEMORY
+			// EXPLAIN AGAIN THE REFERENCE MECHANISM WITH A SCHEMA OF MEMORY
 
 			// Static method cannot be called from an instance.
 			// But we can call static methods directly, like this.
