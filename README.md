@@ -5,6 +5,8 @@ The solution **CSharp_Tutorial.sln** contains 3 projects:
 - **OOProg (Library)** : learn object-oriented programming using a simple example of a parent class and its children classes.
 - **GameProg (Console Application)** : learn what does programming a game involve : user interface, user inputs, game logic, game loop.
 
-Read the source code and all the comments as possible to understand everything.  
-Executing and debugging the applications step-by-step will also help you to understand how the code is processed.  
-The source code contains dozen of comments to help you understand the subtilities of the C# programming language.
+## Guidelines
+- Read the source code and all the comments as possible to understand everything.  
+There are dozen of comments to help you understand the subtilities of the C# programming language.  
+- Try to solve the exercises by yourself before looking at the corrections : give you at least 10 minutes to solve an exercise.  
+- Executing and debugging the console applications step-by-step will also help you to understand how the code is processed.  
