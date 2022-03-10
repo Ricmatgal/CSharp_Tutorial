@@ -28,17 +28,18 @@ namespace BasicsProg
 			// 2. Write some text to the console.
 			Console.WriteLine("Hello World!");
 			// Tests : uncomment the desired test to run it. 
-			//VariablesTest();
-			//StringTest();
-			//OperationsTest();
-			//ConditionalsTest();
-			//ArrayTest();
-			//ListTest();
-			//DictionnaryTest();
-			//LoopsTest();
-			//MethodsTest();
-			//ClassTest();
-			//FileTest();
+			//VariablesTest(); // 4
+			//StringTest(); // 5
+			//OperationsTest(); // 6
+			//ConditionalsTest(); // 7
+			//ArrayTest(); // 8
+			//ListTest(); // 9
+			//DictionnaryTest(); // 10
+			//LoopsTest(); // 11
+			//CopyVsReferenceTest(); // 12
+			//MethodsTest(); // 13
+			//ClassTest(); // 14
+			//FileTest(); // 15
 
 			WaitForQuit();
 		}
@@ -76,9 +77,13 @@ namespace BasicsProg
 			// An integer named productYear equal to 2021.
 			// A float named productPrice equal to 499.99f.
 			#region CORRECTION
+			Console.WriteLine("====EXERCISE====");
 			string productName = "TV";
 			int productYear = 2021;
 			float productPrice = 499.99f;
+			Console.WriteLine("productName : " + productName);
+			Console.WriteLine("productYear : " + productYear);
+			Console.WriteLine("productPrice : " + productPrice);
 			#endregion
 
 			// Scope of Variables.
@@ -139,6 +144,7 @@ namespace BasicsProg
 			// John Smith is 27 years old.
 			// You can also create a variable age to store the age.
 			#region CORRECTION
+			Console.WriteLine("====EXERCISE====");
 			int age = 27;
 			string result = string.Format("{0} {1} is {2} years old.", firstName, lastName, age);
 			Console.WriteLine("result : " + result);
@@ -202,9 +208,12 @@ namespace BasicsProg
 			// EXERCISE : convert double to int.
 			// This conversion is dangerous (64 bits => 32 bits) and we will lose the decimal part.
 			#region CORRECTION
+			Console.WriteLine("====EXERCISE====");
 			int myDoubleAsInt = (int)myDouble; // cast is mandatory because this conversion is dangerous.
-			#endregion
 			Console.WriteLine("myDouble as int : " + myDoubleAsInt);
+			#endregion
+
+			Console.WriteLine("====Conversion Test====");
 			Console.WriteLine("myDouble as int (floor) : " + Math.Floor(myDouble));
 			Console.WriteLine("myDouble as int (ceiling) : " + Math.Ceiling(myDouble));
 			Console.WriteLine("myDouble as int (rounding) : " + Math.Round(myDouble));
@@ -230,6 +239,7 @@ namespace BasicsProg
 
 			// EXERCISE : Cast sum/diff/product/quotient/remainder to float.
 			#region CORRECTION
+			Console.WriteLine("====EXERCISE====");
 			float sumAsFloat = (float)sum;
 			Console.WriteLine("sumAsFloat : " + sumAsFloat);
 			float diffAsFloat = (float)diff;
@@ -318,6 +328,7 @@ namespace BasicsProg
 			// In this exercise, you must construct an if statement that checks if the number guess is equal to 500.
 			// If that is the case, use Console.WriteLine to display "You Win!" or "You Loose !".
 			#region CORRECTION
+			Console.WriteLine("====EXERCISE====");
 			Console.WriteLine("Guess the number ? (you have only one chance)");
 			int guess = int.Parse(Console.ReadLine());
 			if (guess == 500)
@@ -387,7 +398,9 @@ namespace BasicsProg
 
 			// EXERCISE : Define an array called fruits that holds the following strings: "apple", "banana", and "orange".
 			#region CORRECTION
+			Console.WriteLine("====EXERCISE====");
 			string[] fruits = { "apple", "banana", "orange" };
+			Console.WriteLine("fruits : {0} ; {1} ; {2}", fruits[0], fruits[1], fruits[2]);
 			#endregion
 
 			// DEBUGGER INTRODUCTION
@@ -457,6 +470,7 @@ namespace BasicsProg
 			// EXERCISE : Construct a list of the first 5 prime numbers(2, 3, 5, 7, 11) called primeNumbers
 			// Then remove the first and last elements.
 			#region CORRECTION
+			Console.WriteLine("====EXERCISE====");
 			List<int> primeNumbers = new List<int>();
 			primeNumbers.AddRange(new int[] { 2, 3, 5, 7, 11 });
 			Console.WriteLine("Prime numbers : {0} ; {1} ; {2} ; {3} ; {4}", primeNumbers[0], primeNumbers[1], primeNumbers[2], primeNumbers[3], primeNumbers[4]);
@@ -525,6 +539,7 @@ namespace BasicsProg
 			// Then check how many ananas there are in the inventory.
 			// You can create a variable called fruitToCheck to use to check the quantity of any fruit.
 			#region CORRECTION
+			Console.WriteLine("====EXERCISE====");
 			Dictionary<string, int> inventory = new Dictionary<string, int>();
 			inventory.Add("apple", 3);
 			inventory.Add("orange", 5);
@@ -586,6 +601,7 @@ namespace BasicsProg
 			// EXERCISE
 			// Print the even numbers from 2 to 100 without using an if statement.
 			#region CORRECTION
+			Console.WriteLine("====EXERCISE====");
 			for (int i = 2; i < 101; i += 2)
 			{
 				Console.WriteLine("even number : " + i);
@@ -609,6 +625,7 @@ namespace BasicsProg
 			// EXERCISE
 			// In this exercise, you must find if "Python" is present in the array programming using a foreach loop.
 			#region CORRECTION
+			Console.WriteLine("====EXERCISE====");
 			bool pythonFound = false;
 			foreach (string language in programming)
 			{
@@ -641,6 +658,7 @@ namespace BasicsProg
 			// 1. Print programming languages using a while loop.
 			// 2. Print programming languages using a for loop.
 			#region CORRECTION
+			Console.WriteLine("====EXERCISE====");
 			// 1.
 			Console.WriteLine("Loops with while :");
 			n = 0;
@@ -659,7 +677,64 @@ namespace BasicsProg
 			// REMARK : "while" and "for" loops are faster than "foreach" loops.
 		}
 
-		// 12. Methods
+		// 12. Copy Vs Reference
+		static void CopyVsReferenceTest()
+		{
+			Console.WriteLine("====Copy Test====");
+			int a = 2;
+			int b = 5;
+			Console.WriteLine("a : " + a);
+			Console.WriteLine("b : " + b);
+			a = b; // a get the value of b : 5 => "a" is a "copy" of "b"
+			Console.WriteLine("a=b");
+			Console.WriteLine("a : " + a);
+			Console.WriteLine("b : " + b);
+			a = 3; // a get the value 3
+			Console.WriteLine("a=3");
+			Console.WriteLine("a : " + a);
+			Console.WriteLine("b : " + b); // b keeps its value : 5
+			// COPY IS THE DEFAULT BEHAVIOUR FOR ALL "struct" TYPES
+			// All primitives types are "struct" types : bool, char, short, int, long, float, double, ...
+
+			Console.WriteLine("====Reference Test====");
+			int[] nums = { 2, 3 }; // nums is a "reference" to the memory slot allocated for the array { 2, 3 } => nums contains the memory address of the first element of the array.
+			int[] nums2 = { 4, 5 }; // nums2 is a "reference" to the memory slot allocated for the array { 4, 5 } => nums2 contains the memory address of the first element of the array.
+			Console.WriteLine("nums : {0} ; {1}", nums[0], nums[1]);
+			Console.WriteLine("nums2 : {0} ; {1}", nums2[0], nums2[1]);
+			Console.WriteLine("nums=nums2");
+			// there is no copy of arrays here : only the memory address pointed by nums2 is copied to nums !
+			nums = nums2; // => nums is a "reference" to nums2
+			// nums & nums2 now point to the exact same memory slot.
+			// So printing nums is now the same as printing nums2.
+			Console.WriteLine("nums : {0} ; {1}", nums[0], nums[1]);
+			Console.WriteLine("nums2 : {0} ; {1}", nums2[0], nums2[1]);
+			// And modifying nums is the same as modifying nums2.
+			nums[0] = 10; // nums2[0] is also modified here.
+			Console.WriteLine("nums[0]=10");
+			Console.WriteLine("nums : {0} ; {1}", nums[0], nums[1]);
+			Console.WriteLine("nums2 : {0} ; {1}", nums2[0], nums2[1]);
+			// REFERENCE IS THE DEFAULT BEHAVIOUR FOR ALL "class" TYPES
+			// Examples of "class" types : String, Array, List, Disctionary, ...
+
+			// EXERCISE : Swap the references nums3 & nums4 without copying any of their array values.
+			// int[] nums3 = { 30, 35 };
+			// int[] nums4 = { 40, 45 };
+			#region CORRECTION
+			Console.WriteLine("====EXERCISE====");
+			int[] nums3 = { 30, 35 };
+			int[] nums4 = { 40, 45 };
+			Console.WriteLine("nums3 : {0} ; {1}", nums3[0], nums3[1]);
+			Console.WriteLine("nums4 : {0} ; {1}", nums4[0], nums4[1]);
+			int[] tmp = nums3; // tmp references nums3 array
+			nums3 = nums4; // nums3 reference nums4 array
+			nums4 = tmp; // nums4 reference tmp array which is nums3 array
+			Console.WriteLine("nums3 & nums4 references swapped !");
+			Console.WriteLine("nums3 : {0} ; {1}", nums3[0], nums3[1]);
+			Console.WriteLine("nums4 : {0} ; {1}", nums4[0], nums4[1]);
+			#endregion
+		}
+
+		// 13. Methods
 		// A simple method returning an integer, with no parameters.
 		static int IntegerTest()
 		{
@@ -682,6 +757,7 @@ namespace BasicsProg
 			// Create a method which take 2 parameters : an array of integer values, and a integer value to check if it is present in the array.
 			// The method must return the index of the integer value if found in the array, otherwise it returns -1.
 			#region CORRECTION INDEXOF
+			Console.WriteLine("====EXERCISE====");
 			int[] values = { 1, -2, 3, 44, int.MinValue, 6, 9, int.MaxValue, 101, 56 };
 			Console.WriteLine("IndexOf(6) : " + IndexOf(values, 6));
 			#endregion
@@ -701,6 +777,18 @@ namespace BasicsProg
 			Console.WriteLine("values[0] : " + values[0]);
 			ReferenceTest(values);
 			Console.WriteLine("values[0] : " + values[0]);
+			
+			Console.WriteLine("====Reference Test2====");
+			a = 5; // Reset a to 5.
+			Console.WriteLine("a : " + a);
+			ReferenceTest2(ref a); // We can also pass struct types as reference using the keyword "ref".
+			Console.WriteLine("a : " + a);
+
+			Console.WriteLine("====Reference Test3====");
+			int b; // b should be non-initialized using the keyword "out".
+			ReferenceTest3(out b); // We can also pass struct types as reference using the keyword "out".
+			Console.WriteLine("b : " + b);
+
 
 			// EXERCISE
 			// What's wrong with the Compute method below.
@@ -722,6 +810,7 @@ namespace BasicsProg
 			//	return val1 - val2;
 			//}
 			#region CORRECTION COMPUTE
+			Console.WriteLine("====EXERCISE====");
 			Console.WriteLine("RangeOfValues({2, 5, 10}) : " + RangeOfValues(new int[] { 2, 5, 10 }));
 			Console.WriteLine("RangeOfValues({-2, 5, 10}) : " + RangeOfValues(new int[] { -2, 5, 10 }));
 			Console.WriteLine("RangeOfValues({-2, 5, -10}) : " + RangeOfValues(new int[] { -2, 5, -10 }));
@@ -747,19 +836,52 @@ namespace BasicsProg
 		#endregion
 
 		// struct-type parameters are always passed by copy.
+		// example:
+		// int a = 2;
+		// CopyTest(a); 
+		// a value is still 2.
 		static void CopyTest(int pTest)
 		{
 			Console.WriteLine("pTest : " + pTest);
-			pTest = 3;
+			pTest = 3; // pTest = 3 done locally but not the parameter passed to the function.
+			// This is because variable "pTest" is a copy of variable "a".
 			Console.WriteLine("pTest : " + pTest);
 		}
 
-		// class-type (Array, List, etc...) are all passed by reference.
+		// class-type (Array, List, etc...) parameters are always passed by reference.
+		// example:
+		// int[] nums = { 1, 2 };
+		// ReferenceTest(nums);
+		// nums[0] is now 3.
 		static void ReferenceTest(int[] pValues)
 		{
 			Console.WriteLine("pValues[0] : " + pValues[0]);
-			pValues[0] = 3;
+			pValues[0] = 3; // nums[0] is modified because "nums" & "pValues" reference the exact same memory slot.
 			Console.WriteLine("pValues[0] : " + pValues[0]);
+		}
+
+		// the keyword "ref" allow us to pass any type (struct types included) by reference.
+		// example:
+		// int a = 2;
+		// ReferenceTest2(a);
+		// a value is now 3
+		static void ReferenceTest2(ref int pTest2)
+		{
+			Console.WriteLine("pTest2 : " + pTest2);
+			pTest2 = 3; // "a" is modified because "a" & "pTest2" reference the exact same memory slot.
+			Console.WriteLine("pTest2 : " + pTest2);
+		}
+
+		// the keyword "out" do the same as keyword "ref" but you are obliged to pass a non-initialized parameter to the function when you call it.
+		// example:
+		// int a; // non-initialized.
+		// ReferenceTest3(a); 
+		// a value is now 3
+		static void ReferenceTest3(out int pTest3)
+		{
+			//Console.WriteLine("pTest3 : " + pTest3); // cannot print a non-initialized variable !
+			pTest3 = 3; // "a" is modified because "a" & "pTest3" reference the exact same memory slot.
+			Console.WriteLine("pTest3 : " + pTest3);
 		}
 
 		#region CORRECTION COMPUTE
@@ -804,7 +926,7 @@ namespace BasicsProg
 		}
 		#endregion
 
-		// 13. Class
+		// 14. Class
 		// You can declare a class inside another class.
 		// Here we declare the class MyFirstClass inside the class Program.
 		class MyFirstClass
@@ -860,7 +982,7 @@ namespace BasicsProg
 
 		}// instance1 & instance2 objects destroyed here.
 
-		// 14. File
+		// 15. File
 		static void FileTest()
 		{
 			Console.WriteLine("====File Test====");
