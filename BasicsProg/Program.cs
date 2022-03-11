@@ -26,6 +26,7 @@ namespace BasicsProg
 			// to pass some parameters to the application.
 
 			// 2. Write some text to the console.
+			// An instruction in C# always terminates with ";".
 			Console.WriteLine("Hello World!");
 			// Tests : uncomment the desired test to run it. 
 			//VariablesTest(); // 4
@@ -641,18 +642,20 @@ namespace BasicsProg
 
 			Console.WriteLine("====While Loops Test====");
 			int n = 0; // Using while loops, you need to initialize an iterator first.
-			// Loops while n < 2 with "while"
-			while (n < 2)
+			// A "while" loop contains only a stop condition.
+			while (n < 2) // stop condition
 			{
+				// Don't forget to increment the iterator, to not loop infinitely.
 				Console.WriteLine("n (while): " + (n++)); // n++ : give the value of n, then increment n.
 			}
 
-			// Loops while n < 2 with "do while"
+			// A "do while" loop is executed at least once, because the stop condition happens after the first iteration.
 			n = 0;
 			do
 			{
+				// Don't forget to increment the iterator, to not loop infinitely.
 				Console.WriteLine("n (do while): " + (++n)); // ++n : increment n, then give the value of n.
-			} while (n < 2);
+			} while (n < 2); // stop condition
 
 			// EXERCISE
 			// 1. Print programming languages using a while loop.
@@ -695,6 +698,7 @@ namespace BasicsProg
 			Console.WriteLine("b : " + b); // b keeps its value : 5
 			// COPY IS THE DEFAULT BEHAVIOUR FOR ALL "struct" TYPES
 			// All primitives types are "struct" types : bool, char, short, int, long, float, double, ...
+			// SHOW A SIMPLE SCHEMA OF MEMORY FOR a & b
 
 			Console.WriteLine("====Reference Test====");
 			int[] nums = { 2, 3 }; // nums is a "reference" to the memory slot allocated for the array { 2, 3 } => nums contains the memory address of the first element of the array.
@@ -715,6 +719,7 @@ namespace BasicsProg
 			Console.WriteLine("nums2 : {0} ; {1}", nums2[0], nums2[1]);
 			// REFERENCE IS THE DEFAULT BEHAVIOUR FOR ALL "class" TYPES
 			// Examples of "class" types : String, Array, List, Disctionary, ...
+			// EXPLAIN THE REFERENCE MECHANISM WITH A SCHEMA OF MEMORY
 
 			// EXERCISE : Swap the references nums3 & nums4 without copying any of their array values.
 			// int[] nums3 = { 30, 35 };
@@ -732,6 +737,14 @@ namespace BasicsProg
 			Console.WriteLine("nums3 : {0} ; {1}", nums3[0], nums3[1]);
 			Console.WriteLine("nums4 : {0} ; {1}", nums4[0], nums4[1]);
 			#endregion
+			// REMARK : swaping references is a mechanism which avoids time-consuming copy of different blocks of data.
+			// Real-life example in computer graphics : the double-buffer swap mechanism.
+			// Let's say a buffer is a matrix of pixels colors, like this one : byte[1920,1080,3] where each pixel has Red/Green/Blue values of type byte [0;255].
+			// At any one time, the "front" buffer is actively being displayed by the monitor, while the other, the "background" buffer is being drawn (pixels are getting their new colors).
+			// When the "background" buffer is complete, the roles of the two buffers are switched (swap of references), which avoids a huge copy of their respective data.
+			// Thus the "background" buffer becomes the "front" buffer and it can now be displayed, while the "front" buffer becomes the "background" buffer and it can now store the new pixel colors.
+			// The swap is typically accomplished by modifying a hardware register in the video display controller (the value of a pointer to the beginning of the display data in the video memory),
+			// during each vertical refresh of the monitor (typically at 60Hz).
 		}
 
 		// 13. Methods
@@ -820,13 +833,13 @@ namespace BasicsProg
 			//}
 			#region CORRECTION COMPUTE
 			Console.WriteLine("====EXERCISE====");
-			Console.WriteLine("RangeOfValues({2, 5, 10}) : " + RangeOfValues(new int[] { 2, 5, 10 }));
-			Console.WriteLine("RangeOfValues({-2, 5, 10}) : " + RangeOfValues(new int[] { -2, 5, 10 }));
-			Console.WriteLine("RangeOfValues({-2, 5, -10}) : " + RangeOfValues(new int[] { -2, 5, -10 }));
+			Console.WriteLine("RangeOfValues({2, 5, 10}) : " + RangeOfValues(new int[] { 2, 5, 10 })); // Test only positive values
+			Console.WriteLine("RangeOfValues({-2, 5, 10}) : " + RangeOfValues(new int[] { -2, 5, 10 })); // Test a mix of positive & negative values
+			Console.WriteLine("RangeOfValues({-2, 5, -10}) : " + RangeOfValues(new int[] { -2, 5, -10 })); // Test only negative values
 			Console.WriteLine("RangeOfValues(null) : " + RangeOfValues(null)); // Test Edge case 5 : array is null
 			Console.WriteLine("RangeOfValues({ }) : " + RangeOfValues(new int[] { })); // Test Edge case 5 : array length is 0.
 			Console.WriteLine("RangeOfValues({2}) : " + RangeOfValues(new int[] { 2 })); // Test Edge case 6 : array length is 1.
-			Console.WriteLine("RangeOfValues({ int.Min, 2, int.Max }) : " + RangeOfValues(new int[] { int.MinValue, 2, int.MaxValue })); // Test Edge case 8 : array contains int.Min or int.Max
+			Console.WriteLine("RangeOfValues({ int.Min, 2, int.Max }) : " + RangeOfValues(new int[] { int.MinValue, 2, int.MaxValue })); // Test Edge case 7 : array contains int.Min or int.Max
 			#endregion
 		}
 
@@ -894,8 +907,8 @@ namespace BasicsProg
 		}
 
 		#region CORRECTION COMPUTE
-		// Compute method fixes:
-		// 1. Naming of function and variables because it is not obvious to understand their meaning.
+		// COMPUTE METHOD FIXES (= GOOD CODING PRACTICES):
+		// 1. Naming of functions and variables because it is not obvious to understand their meaning.
 		// => Always name things (function, variables, ...) to be self-explanatory !
 		// It will be easier to understand for everyone and shouldn't require lot of documentation.
 		// 2. val1 & val2 are not initialized !
@@ -905,15 +918,19 @@ namespace BasicsProg
 		// 4. Algorithm is wrong :
 		//    - if(val1 > pValues[i]) => if(pValues[i] > val1)
 		//    - if(val2 < pValues[i]) => if(pValues[i] < val2)
-		// => Try to anticipate any case where your function could return a wrong result (edge cases) ! 
+		// => Checks the logic !
 		// 5. Edge case : should return 0 in case pValues is null or pValues.Count == 0.
+		// => Anticipate any case where your function could return a wrong result (edge cases) !
 		// 6. Edge case : if only one element in the array, we can consider : element = min = max => Default value for min & max : pValues[0].
-		// 7. Algorithm can be optimized :
+		// 7. Edge case : returning an int value can overflow in case pValues array contains int.Min or int.Max : using a uint can handle the maximal theoretical value (int.Max - int.Min).
+		// 8. Algorithm can be optimized :
 		//    - for loop starting from index 1, instead of 0
 		//    - "else if" statement, instead of 2x "if" (the 2x "if" are always executed)
-		// => Optimizing your code should always be the final step to do, after you already checked : 
-		// naming, initialization, errors (infinite loops, overflows, bad logic, wrong algorithms).
-		// 8. Edge case : Returning an int value can overflow in case pValues array contains int.Min or int.Max : using a uint can handle the maximal theoretical value (int.Max - int.Min).
+		// => Optimizing your code should always be the last step to do, after you already checked :
+		// - naming,
+		// - initialization,
+		// - errors (infinite loops, overflows, bad logic, wrong algorithms),
+		// - edge cases.
 		static uint RangeOfValues(int[] pValues)
 		{
 			// 5. Edge case
@@ -936,9 +953,9 @@ namespace BasicsProg
 					min = pValues[i];
 				}
 			}
-			// 8. Edge case
+			// 7. Edge case
 			int range = max - min; // this value can overflow because we only have 31 bits of data in a int (the 32th bit is reserved for the sign).
-			return (uint)range; // uint is safe because it can handle the maximum theoretical value (int.Max - int.Min), thanks to its 32 bits of data.
+			return (uint)range; // uint type is safe because it can handle the maximum theoretical value (int.Max - int.Min), thanks to its 32 bits of data.
 		}
 		#endregion
 
@@ -955,8 +972,11 @@ namespace BasicsProg
 			private static int _instancesCount = 0; // a static attribute is not related to any instances.
 
 			// Constructor
-			// Declaring a constructor is optional unless you really need it.
-			// A construcor is called automatically each time an object of type MyFirstClass is instantiated.
+			// The purpose of the Constructor is to initialize instance's attributes.
+			// By default, the compiler already creates a Constructor which initialize attributes with their given values (or default value if no given value).
+			// So, declaring a constructor is optional unless you really need it.
+			// The constructor is called when creating instances of the class.
+			// Example : MyFirstClass instance = new MyFirstClass();
 			public MyFirstClass()
 			{
 				_instanceNumber = ++_instancesCount; // _instancesCount is incremented each time an object of type MyFirstClass is instantiated.
@@ -976,7 +996,8 @@ namespace BasicsProg
 		static void ClassTest()
 		{
 			Console.WriteLine("====Class Test====");
-			// Instantiation of an object of type MyFirstClass.
+			// Instantiation of "an object of type MyFirstClass" (= an instance of type MyFirstClass).
+			// The "new" keyword is asking the Operating System to allocate the memory required to handle the data of an object of type MyFirstClass.
 			MyFirstClass instance1 = new MyFirstClass();
 			instance1.InstanceMethod(); // name has value "default".
 			instance1.name = "thales"; // we can modify the attribute name because it is publicly accessible.
@@ -986,17 +1007,23 @@ namespace BasicsProg
 			instance2.InstanceMethod(); // name has value "default".
 			instance2.name = "pythagore"; // we can modify the attribute name because it is publicly accessible.
 			instance2.InstanceMethod(); // name has value "pythagore".
-			// Here there is no copy 
-			instance2 = instance1; // instance2 now points to the same object as instance1.
+			// Here there is no copy, because class type uses reference mechanism by default.
+			instance2 = instance1; // instance2 now points to the same block of memory as instance1.
+			// The block of memory allocated initially to store instance2 data, is no longer referenced anywhere !
+			// So we can say that instance2 data is lost (=unreferenced memory).
+			// Fortunately, the C# Garbage Collector is in charge to automatically release unreferenced memory.
+			// Thus, as C# programmers, we don't need to take care to release the memory allocated using the "new" keyword.
+			// But we should take care to not allocate memory too much frequently,
+			// because it will make the C# Garbage Collector working too much and can lead to slow performance of the application.
 			Console.WriteLine("instance2 = instance1");
-			instance2.InstanceMethod(); // name has value "thales".
+			instance2.InstanceMethod(); // name has value "thales" (the name of instance1).
 			// EXPLAIN AGAIN THE REFERENCE MECHANISM WITH A SCHEMA OF MEMORY
 
 			// Static method cannot be called from an instance.
 			// But we can call static methods directly, like this.
 			MyFirstClass.StaticMethod();
 
-		}// instance1 & instance2 objects destroyed here.
+		}// instance1 & instance2 objects destroyed here (=memory released by the C# Garbage Collector)
 
 		// 15. File
 		static void FileTest()

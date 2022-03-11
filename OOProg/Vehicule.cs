@@ -3,8 +3,8 @@
 namespace OOProg
 {
 	// an enum can be :
-	// - interpreted as an integer value.
-	// - easyly converted to a string using method ToString().
+	// - interpreted as an integer value (Left = 0, Forward = 1, Right = 2).
+	// - easyly converted to a string using the method ToString().
 	public enum Direction { Left, Forward, Right }
 
 	// EXERCISE 1
@@ -54,7 +54,7 @@ namespace OOProg
 			MaxSpeed = 120u;
 		}
 
-		// Override means this method will be called instead of the one from base class.
+		// Override means this method will be called instead of the one from the parent (base) class.
 		public override void Move(Direction pDirection)
 		{
 			// you can call the method from the parent (base) class if you want
