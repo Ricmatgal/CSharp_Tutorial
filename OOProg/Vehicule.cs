@@ -27,11 +27,29 @@ namespace OOProg
 		// This is a shorter way to add a property with the same level of protection (public read / protected write).
 		public uint MaxSpeed { get; protected set; } = 0u; // property with default value.
 
+		//public float RotationSpeed { get; set; }
+		// Verbose way to do the same thing as property.
+		//private float _rotationSpeed;
+		//public void SetRotationSpeed(float pRotationSpeed)
+		//{
+		//	_rotationSpeed = pRotationSpeed;
+		//}
+		//public float GetRotationSpeed()
+		//{
+		//	return _rotationSpeed;
+		//}
+
 		// Abstract method has no implementation.
 		//public abstract void Move(Direction pDirection);
+
 		public virtual void Move(Direction pDirection)
 		{
 			Console.WriteLine("Vehicule moved to direction : " + pDirection); // pDirection.ToString() called implicitly.
+		}
+
+		public virtual void Rotate(float pAngle)
+		{
+			Console.WriteLine("Vehicule rotated by {0} degrees", pAngle);
 		}
 
 		public override string ToString()
@@ -63,6 +81,11 @@ namespace OOProg
 			Console.WriteLine("Car moved to direction : " + pDirection);
 		}
 
+		public override void Rotate(float pAngle)
+		{
+			Console.WriteLine("Car rotated by {0} degrees", pAngle);
+		}
+
 		// All types inherit from object by default, and can override the ToString() method.
 		public override string ToString()
 		{
@@ -90,6 +113,11 @@ namespace OOProg
 			Console.WriteLine("Bike moved to direction : " + pDirection);
 		}
 
+		public override void Rotate(float pAngle)
+		{
+			Console.WriteLine("Bike rotated by {0} degrees", pAngle);
+		}
+
 		public override string ToString()
 		{
 			return "Bike : #Wheels(" + _wheelsCount + ") | Max speed (" + MaxSpeed + ")";
@@ -108,6 +136,11 @@ namespace OOProg
 		public override void Move(Direction pDirection)
 		{
 			Console.WriteLine("Bus moved to direction : " + pDirection);
+		}
+
+		public override void Rotate(float pAngle)
+		{
+			Console.WriteLine("Bus rotated by {0} degrees", pAngle);
 		}
 
 		public override string ToString()

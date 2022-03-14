@@ -962,7 +962,12 @@ namespace BasicsProg
 		// 14. Class
 		// You can declare a class inside another class.
 		// Here we declare the class MyFirstClass inside the class Program.
-		class MyFirstClass
+		// Different levels of accessibility : 
+		// - internal : you can access from the same dll
+		// - public : you can access from everywhere
+		// - private : you can access from within the class only
+		// - protected : you call access from the class and its children classes.
+		public class MyFirstClass
 		{
 			// "public" Keyword allow us to access from the outside of this class.
 			public string name = "default"; // an instance attribute.
